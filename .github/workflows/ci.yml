@@ -29,14 +29,11 @@ jobs:
         run: yarn lint:ci
 
       - name: Merge Linting Results
-        if: always()
         run: node ./ci/merge-eslint-reports.js
 
-      - name: Annotate Linting Results
+      - name: Annotate Code Linting Results
         uses: ataylorme/eslint-annotate-action@v2
-        if: always()
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
           report-json: "merged_eslint_report.json"
 
       - name: Run Tests
