@@ -1,4 +1,4 @@
-name: CI
+name: Code Quality
 
 on:
   push:
@@ -7,30 +7,31 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  typecheck:
+  all-in-one:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'yarn'
-      - run: yarn
-      - run: yarn typecheck
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: 'yarn'
-      - run: yarn
-      - run: yarn lint:ci
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Run Typecheck
+        run: yarn typecheck
+
+      - name: Run Lint
+        run: yarn lint:ci
+
       - name: Merge Linting Results
         if: always()
         run: node ./ci/merge-eslint-reports.js
+
       - name: Annotate Linting Results
         uses: ataylorme/eslint-annotate-action@v2
         if: always()
@@ -38,24 +39,5 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           report-json: "merged_eslint_report.json"
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'yarn'
-      - run: yarn
-      - run: yarn build
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'yarn'
-      - run: yarn
-      - run: yarn test
+      - name: Run Tests
+        run: yarn test
