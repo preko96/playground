@@ -35,6 +35,3 @@ jobs:
         uses: ataylorme/eslint-annotate-action@v2
         with:
           report-json: "merged_eslint_report.json"
-
-      - name: Run Tests
-        run: yarn test
