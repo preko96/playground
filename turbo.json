@@ -9,6 +9,9 @@
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "lint:ci": {
+      "cache": false
+    },
     "typecheck": {
       "cache": false
     },
