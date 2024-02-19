@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --max-warnings 0"
+    "lint:ci": "next lint -o eslint_report.json --format json --file .eslintrc.js",
+    "typecheck": "tsc --noEmit --incremental false"
   },
   "dependencies": {
     "@repo/ui": "*",
