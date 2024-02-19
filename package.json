@@ -20,5 +20,9 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@vercel/analytics": "^1.2.0",
+    "@vercel/speed-insights": "^1.0.10"
+  }
 }
