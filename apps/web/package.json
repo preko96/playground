@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint:ci": "next lint -o eslint_report.json --format json --file .eslintrc.js",
-    "typecheck": "tsc --noEmit --incremental false",
+    "typecheck": "tsc --noEmit --incremental false"
   },
   "dependencies": {
     "@repo/ui": "*",
